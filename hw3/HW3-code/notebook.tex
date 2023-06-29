@@ -1,0 +1,863 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{two\_layer\_nn}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{this-is-the-2-layer-neural-network-workbook-for-ece-247-assignment-3}{%
+\subsection{This is the 2-layer neural network workbook for ECE 247
+Assignment
+\#3}\label{this-is-the-2-layer-neural-network-workbook-for-ece-247-assignment-3}}
+
+Please follow the notebook linearly to implement a two layer neural
+network.
+
+Please print out the workbook entirely when completed.
+
+We thank Serena Yeung \& Justin Johnson for permission to use code
+written for the CS 231n class (cs231n.stanford.edu). These are the
+functions in the cs231n folders and code in the jupyer notebook to
+preprocess and show the images. The classifiers used are based off of
+code prepared for CS 231n as well.
+
+The goal of this workbook is to give you experience with training a two
+layer neural network.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{data\PYZus{}utils} \PY{k}{import} \PY{n}{load\PYZus{}CIFAR10}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} autoreload
+         \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+         
+         \PY{k}{def} \PY{n+nf}{rel\PYZus{}error}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} returns relative error \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{maximum}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}8}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The autoreload extension is already loaded. To reload it, use:
+  \%reload\_ext autoreload
+
+    \end{Verbatim}
+
+    \hypertarget{toy-example}{%
+\subsection{Toy example}\label{toy-example}}
+
+Before loading CIFAR-10, there will be a toy example to test your
+implementation of the forward and backward pass
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{k+kn}{from} \PY{n+nn}{nndl}\PY{n+nn}{.}\PY{n+nn}{neural\PYZus{}net} \PY{k}{import} \PY{n}{TwoLayerNet}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{} Create a small net and some toy data to check your implementations.}
+         \PY{c+c1}{\PYZsh{} Note that we set the random seed for repeatable experiments.}
+         
+         \PY{n}{input\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{hidden\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{num\PYZus{}inputs} \PY{o}{=} \PY{l+m+mi}{5}
+         
+         \PY{k}{def} \PY{n+nf}{init\PYZus{}toy\PYZus{}model}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{k}{return} \PY{n}{TwoLayerNet}\PY{p}{(}\PY{n}{input\PYZus{}size}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{,} \PY{n}{std}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}1}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{init\PYZus{}toy\PYZus{}data}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{X} \PY{o}{=} \PY{l+m+mi}{10} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{num\PYZus{}inputs}\PY{p}{,} \PY{n}{input\PYZus{}size}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{k}{return} \PY{n}{X}\PY{p}{,} \PY{n}{y}
+         
+         \PY{n}{net} \PY{o}{=} \PY{n}{init\PYZus{}toy\PYZus{}model}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{init\PYZus{}toy\PYZus{}data}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{compute-forward-pass-scores}{%
+\subsubsection{Compute forward pass
+scores}\label{compute-forward-pass-scores}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Implement the forward pass of the neural network.}
+         
+         \PY{c+c1}{\PYZsh{} Note, there is a statement if y is None: return scores, which is why }
+         \PY{c+c1}{\PYZsh{} the following call will calculate the scores.}
+         \PY{n}{scores} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{loss}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Your scores:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{scores}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{correct scores:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{correct\PYZus{}scores} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{p}{[}
+             \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.07260209}\PY{p}{,}  \PY{l+m+mf}{0.05083871}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.87253915}\PY{p}{]}\PY{p}{,}
+             \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.02778743}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.10832494}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.52641362}\PY{p}{]}\PY{p}{,}
+             \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.74225908}\PY{p}{,}  \PY{l+m+mf}{0.15259725}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.39578548}\PY{p}{]}\PY{p}{,}
+             \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.38172726}\PY{p}{,}  \PY{l+m+mf}{0.10835902}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.17328274}\PY{p}{]}\PY{p}{,}
+             \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.64417314}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.18886813}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.41106892}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{correct\PYZus{}scores}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} The difference should be very small. We get \PYZlt{} 1e\PYZhy{}7}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Difference between your scores and correct scores:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{scores} \PY{o}{\PYZhy{}} \PY{n}{correct\PYZus{}scores}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Your scores:
+[[-1.07260209  0.05083871 -0.87253915]
+ [-2.02778743 -0.10832494 -1.52641362]
+ [-0.74225908  0.15259725 -0.39578548]
+ [-0.38172726  0.10835902 -0.17328274]
+ [-0.64417314 -0.18886813 -0.41106892]]
+
+correct scores:
+[[-1.07260209  0.05083871 -0.87253915]
+ [-2.02778743 -0.10832494 -1.52641362]
+ [-0.74225908  0.15259725 -0.39578548]
+ [-0.38172726  0.10835902 -0.17328274]
+ [-0.64417314 -0.18886813 -0.41106892]]
+
+Difference between your scores and correct scores:
+3.381231233889892e-08
+
+    \end{Verbatim}
+
+    \hypertarget{forward-pass-loss}{%
+\subsubsection{Forward pass loss}\label{forward-pass-loss}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{loss}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{loss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{reg}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}
+         \PY{n}{correct\PYZus{}loss} \PY{o}{=} \PY{l+m+mf}{1.071696123862817}
+         
+         \PY{c+c1}{\PYZsh{} should be very small, we get \PYZlt{} 1e\PYZhy{}12}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Difference between your loss and correct loss:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{loss} \PY{o}{\PYZhy{}} \PY{n}{correct\PYZus{}loss}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Difference between your loss and correct loss:
+0.0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{loss}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1.071696123862817
+
+    \end{Verbatim}
+
+    \hypertarget{backward-pass}{%
+\subsubsection{Backward pass}\label{backward-pass}}
+
+Implements the backwards pass of the neural network. Check your
+gradients with the gradient check utilities provided.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{gradient\PYZus{}check} \PY{k}{import} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient}
+         
+         \PY{c+c1}{\PYZsh{} Use numeric gradient checking to check your implementation of the backward pass.}
+         \PY{c+c1}{\PYZsh{} If your implementation is correct, the difference between the numeric and}
+         \PY{c+c1}{\PYZsh{} analytic gradients should be less than 1e\PYZhy{}8 for each of W1, W2, b1, and b2.  }
+         
+         \PY{n}{loss}\PY{p}{,} \PY{n}{grads} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{loss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{reg}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} these should all be less than 1e\PYZhy{}8 or so}
+         \PY{k}{for} \PY{n}{param\PYZus{}name} \PY{o+ow}{in} \PY{n}{grads}\PY{p}{:}
+             \PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{W}\PY{p}{:} \PY{n}{net}\PY{o}{.}\PY{n}{loss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{reg}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{param\PYZus{}grad\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{net}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{n}{param\PYZus{}name}\PY{p}{]}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ max relative error: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{param\PYZus{}name}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{param\PYZus{}grad\PYZus{}num}\PY{p}{,} \PY{n}{grads}\PY{p}{[}\PY{n}{param\PYZus{}name}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+W2 max relative error: 2.9632245016399034e-10
+b2 max relative error: 1.8392106647421603e-10
+W1 max relative error: 1.2832892417669998e-09
+b1 max relative error: 3.172680285697327e-09
+
+    \end{Verbatim}
+
+    \hypertarget{training-the-network}{%
+\subsubsection{Training the network}\label{training-the-network}}
+
+Implement neural\_net.train() to train the network via stochastic
+gradient descent, much like the softmax and SVM.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{net} \PY{o}{=} \PY{n}{init\PYZus{}toy\PYZus{}model}\PY{p}{(}\PY{p}{)}
+         \PY{n}{stats} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,}
+                     \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}1}\PY{p}{,} \PY{n}{reg}\PY{o}{=}\PY{l+m+mf}{5e\PYZhy{}6}\PY{p}{,}
+                     \PY{n}{num\PYZus{}iters}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Final training loss: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{stats}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss\PYZus{}history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot the loss history}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{stats}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss\PYZus{}history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iteration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Loss history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Final training loss:  0.014497865475252903
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{classify-cifar-10}{%
+\subsection{Classify CIFAR-10}\label{classify-cifar-10}}
+
+Do classification on the CIFAR-10 dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{data\PYZus{}utils} \PY{k}{import} \PY{n}{load\PYZus{}CIFAR10}
+         
+         \PY{k}{def} \PY{n+nf}{get\PYZus{}CIFAR10\PYZus{}data}\PY{p}{(}\PY{n}{num\PYZus{}training}\PY{o}{=}\PY{l+m+mi}{49000}\PY{p}{,} \PY{n}{num\PYZus{}validation}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{num\PYZus{}test}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Load the CIFAR\PYZhy{}10 dataset from disk and perform preprocessing to prepare}
+         \PY{l+s+sd}{    it for the two\PYZhy{}layer neural net classifier. These are the same steps as}
+         \PY{l+s+sd}{    we used for the SVM, but condensed to a single function.  }
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} Load the raw CIFAR\PYZhy{}10 data}
+             \PY{n}{cifar10\PYZus{}dir} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/Users/stathismegas/Documents/ECE\PYZus{}247/cifar\PYZhy{}10\PYZhy{}batches\PYZhy{}py/}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{load\PYZus{}CIFAR10}\PY{p}{(}\PY{n}{cifar10\PYZus{}dir}\PY{p}{)}
+                 
+             \PY{c+c1}{\PYZsh{} Subsample the data}
+             \PY{n}{mask} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}training}\PY{p}{,} \PY{n}{num\PYZus{}training} \PY{o}{+} \PY{n}{num\PYZus{}validation}\PY{p}{)}\PY{p}{)}
+             \PY{n}{X\PYZus{}val} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+             \PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+             \PY{n}{mask} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}training}\PY{p}{)}\PY{p}{)}
+             \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+             \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+             \PY{n}{mask} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}test}\PY{p}{)}\PY{p}{)}
+             \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+             \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+         
+             \PY{c+c1}{\PYZsh{} Normalize the data: subtract the mean image}
+             \PY{n}{mean\PYZus{}image} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{X\PYZus{}train} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mean\PYZus{}image}
+             \PY{n}{X\PYZus{}val} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mean\PYZus{}image}
+             \PY{n}{X\PYZus{}test} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mean\PYZus{}image}
+         
+             \PY{c+c1}{\PYZsh{} Reshape data to rows}
+             \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{num\PYZus{}training}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{X\PYZus{}val} \PY{o}{=} \PY{n}{X\PYZus{}val}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{num\PYZus{}validation}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{num\PYZus{}test}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{k}{return} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}
+         
+         
+         \PY{c+c1}{\PYZsh{} Invoke the above function to get our data.}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{get\PYZus{}CIFAR10\PYZus{}data}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train data shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train labels shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation data shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation labels shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test data shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test labels shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train data shape:  (49000, 3072)
+Train labels shape:  (49000,)
+Validation data shape:  (1000, 3072)
+Validation labels shape:  (1000,)
+Test data shape:  (1000, 3072)
+Test labels shape:  (1000,)
+
+    \end{Verbatim}
+
+    \hypertarget{running-sgd}{%
+\subsubsection{Running SGD}\label{running-sgd}}
+
+If your implementation is correct, you should see a validation accuracy
+of around 28-29\%.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{input\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{32} \PY{o}{*} \PY{l+m+mi}{32} \PY{o}{*} \PY{l+m+mi}{3}
+         \PY{n}{hidden\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{50}
+         \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{net} \PY{o}{=} \PY{n}{TwoLayerNet}\PY{p}{(}\PY{n}{input\PYZus{}size}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Train the network}
+         \PY{n}{stats} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{,}
+                     \PY{n}{num\PYZus{}iters}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,}
+                     \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,} \PY{n}{learning\PYZus{}rate\PYZus{}decay}\PY{o}{=}\PY{l+m+mf}{0.95}\PY{p}{,}
+                     \PY{n}{reg}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Predict on the validation set}
+         \PY{n}{val\PYZus{}acc} \PY{o}{=} \PY{p}{(}\PY{n}{net}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{p}{)} \PY{o}{==} \PY{n}{y\PYZus{}val}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation accuracy: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{val\PYZus{}acc}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Save this net as the variable subopt\PYZus{}net for later comparison.}
+         \PY{n}{subopt\PYZus{}net} \PY{o}{=} \PY{n}{net}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+iteration 0 / 1000: loss 2.3027757912840316
+iteration 100 / 1000: loss 2.3023173850461505
+iteration 200 / 1000: loss 2.297321644795612
+iteration 300 / 1000: loss 2.2625138625317875
+iteration 400 / 1000: loss 2.1956999391625946
+iteration 500 / 1000: loss 2.1029634255888117
+iteration 600 / 1000: loss 2.0966697021945575
+iteration 700 / 1000: loss 1.9675508710125122
+iteration 800 / 1000: loss 2.049642069543729
+iteration 900 / 1000: loss 2.0608101510461347
+Validation accuracy:  0.28
+
+    \end{Verbatim}
+
+    \hypertarget{questions}{%
+\subsection{Questions:}\label{questions}}
+
+The training accuracy isn't great.
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\item
+  What are some of the reasons why this is the case? Take the following
+  cell to do some analyses and then report your answers in the cell
+  following the one below.
+\item
+  How should you fix the problems you identified in (1)?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{stats}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}acc\PYZus{}history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE:}
+         \PY{c+c1}{\PYZsh{}   Do some debugging to gain some insight into why the optimization}
+         \PY{c+c1}{\PYZsh{}   isn\PYZsq{}t great.}
+         \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+         
+         \PY{c+c1}{\PYZsh{} Plot the loss function and train / validation accuracies}
+         
+         \PY{c+c1}{\PYZsh{} plot the loss history}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{stats}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss\PYZus{}history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iteration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Loss history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(} \PY{n}{stats}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}acc\PYZus{}history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{val}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{stats}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}acc\PYZus{}history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iteration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.05}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{borderaxespad}\PY{o}{=}\PY{l+m+mf}{0.}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} f = plt.figure()}
+         \PY{c+c1}{\PYZsh{} ax = f.gca()}
+         \PY{c+c1}{\PYZsh{} ax.plot(stats[\PYZsq{}train\PYZus{}acc\PYZus{}history\PYZsq{}], stats[\PYZsq{}val\PYZus{}acc\PYZus{}history\PYZsq{}], \PYZsq{}\PYZhy{}o\PYZsq{})}
+         \PY{c+c1}{\PYZsh{} ax.set\PYZus{}xlabel(\PYZsq{}\PYZdl{}iteration\PYZdl{}\PYZsq{})}
+         \PY{c+c1}{\PYZsh{} ax.set\PYZus{}ylabel(\PYZsq{}\PYZdl{}accuracy\PYZdl{}\PYZsq{})}
+         
+         \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} END YOUR CODE HERE}
+         \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{answers}{%
+\subsection{Answers:}\label{answers}}
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\item
+  We see that the loss function is very noisy with a mean which is
+  roughly a straight line after iteration 300. These two features are a
+  hint that the learning rate is small! We would want the initial
+  exponential decay of the loss to persist longer so we need to increase
+  the learning rate. Likely it also means we should adjust the number of
+  iterations and the learning\_rate\_decay. Albeit the validation
+  accuracy is higher than the training accuracy, this is just an
+  artifact of low statistics. Both accuracies are so low that it is
+  clear that the learning rate, number of iterations and learning rate
+  decay need adjustment.
+\item
+  The way to perform hyperparameter tuning is to train the model of the
+  train data for different specifications of the hyperparameters, then
+  calculate the validation accuracy, and finally pick the hyperparamters
+  that had the maximum validation accuracy. We do this below.
+\end{enumerate}
+
+    \hypertarget{optimize-the-neural-network}{%
+\subsection{Optimize the neural
+network}\label{optimize-the-neural-network}}
+
+Use the following part of the Jupyter notebook to optimize your
+hyperparameters on the validation set. Store your nets as best\_net.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{n}{best\PYZus{}net} \PY{o}{=} \PY{k+kc}{None} \PY{c+c1}{\PYZsh{} store the best model into this }
+         
+         \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE:}
+         \PY{c+c1}{\PYZsh{}   Optimize over your hyperparameters to arrive at the best neural}
+         \PY{c+c1}{\PYZsh{}   network.  You should be able to get over 50\PYZpc{} validation accuracy.}
+         \PY{c+c1}{\PYZsh{}   For this part of the notebook, we will give credit based on the}
+         \PY{c+c1}{\PYZsh{}   accuracy you get.  Your score on this question will be multiplied by:}
+         \PY{c+c1}{\PYZsh{}      min(floor((X \PYZhy{} 28\PYZpc{})) / \PYZpc{}22, 1) }
+         \PY{c+c1}{\PYZsh{}   where if you get 50\PYZpc{} or higher validation accuracy, you get full}
+         \PY{c+c1}{\PYZsh{}   points.}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}   Note, you need to use the same network structure (keep hidden\PYZus{}size = 50)!}
+         \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+         \PY{n}{input\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{32} \PY{o}{*} \PY{l+m+mi}{32} \PY{o}{*} \PY{l+m+mi}{3}
+         \PY{n}{hidden\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{50}
+         \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{net} \PY{o}{=} \PY{n}{TwoLayerNet}\PY{p}{(}\PY{n}{input\PYZus{}size}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{)}
+         
+         \PY{n}{rates} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,}\PY{l+m+mf}{1e\PYZhy{}5}\PY{p}{]}
+         \PY{n}{best}\PY{o}{=}\PY{l+m+mi}{0}
+         
+         \PY{k}{for} \PY{n}{rate} \PY{o+ow}{in} \PY{n}{rates}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Train the network}
+             \PY{n}{net} \PY{o}{=} \PY{n}{TwoLayerNet}\PY{p}{(}\PY{n}{input\PYZus{}size}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{)}
+             \PY{n}{stats} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{,}
+                     \PY{n}{num\PYZus{}iters}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,}
+                     \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{n}{rate}\PY{p}{,} \PY{n}{learning\PYZus{}rate\PYZus{}decay}\PY{o}{=}\PY{l+m+mf}{0.95}\PY{p}{,}
+                     \PY{n}{reg}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Predict on the validation set}
+             \PY{n}{val\PYZus{}acc} \PY{o}{=} \PY{p}{(}\PY{n}{net}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{p}{)} \PY{o}{==} \PY{n}{y\PYZus{}val}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation accuracy: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{val\PYZus{}acc}\PY{p}{)}
+             
+             \PY{k}{if} \PY{n}{val\PYZus{}acc}\PY{o}{\PYZgt{}}\PY{n}{best}\PY{p}{:}
+                 \PY{n}{best} \PY{o}{=} \PY{n}{val\PYZus{}acc} 
+                 \PY{n}{best\PYZus{}net} \PY{o}{=} \PY{n}{net}
+         
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best validation accuracy achieved: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{best}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} END YOUR CODE HERE}
+         \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+iteration 0 / 1000: loss 2.302787475336807
+iteration 100 / 1000: loss 1.8714604183249883
+iteration 200 / 1000: loss 1.75225875748966
+iteration 300 / 1000: loss 1.6526157995797341
+iteration 400 / 1000: loss 1.712850337243923
+iteration 500 / 1000: loss 1.6275016593132559
+iteration 600 / 1000: loss 1.565406310161893
+iteration 700 / 1000: loss 1.5097249240130026
+iteration 800 / 1000: loss 1.5554635057465112
+iteration 900 / 1000: loss 1.5749046758916765
+Validation accuracy:  0.461
+iteration 0 / 1000: loss 2.3027631073314803
+iteration 100 / 1000: loss 2.302346280585512
+iteration 200 / 1000: loss 2.297086754263393
+iteration 300 / 1000: loss 2.2521847904678363
+iteration 400 / 1000: loss 2.207271789776307
+iteration 500 / 1000: loss 2.0824914369766985
+iteration 600 / 1000: loss 2.150703467406557
+iteration 700 / 1000: loss 2.007610082464378
+iteration 800 / 1000: loss 1.9900996158843345
+iteration 900 / 1000: loss 1.9488566410747898
+Validation accuracy:  0.284
+iteration 0 / 1000: loss 2.3027911840626234
+iteration 100 / 1000: loss 2.302779854609798
+iteration 200 / 1000: loss 2.302732364894398
+iteration 300 / 1000: loss 2.3027138485645726
+iteration 400 / 1000: loss 2.302694980269803
+iteration 500 / 1000: loss 2.3026787120618564
+iteration 600 / 1000: loss 2.3026170798990453
+iteration 700 / 1000: loss 2.3026044661131926
+iteration 800 / 1000: loss 2.3025948388405624
+iteration 900 / 1000: loss 2.3025194371018496
+Validation accuracy:  0.196
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{vis\PYZus{}utils} \PY{k}{import} \PY{n}{visualize\PYZus{}grid}
+         
+         \PY{c+c1}{\PYZsh{} Visualize the weights of the network}
+         
+         \PY{k}{def} \PY{n+nf}{show\PYZus{}net\PYZus{}weights}\PY{p}{(}\PY{n}{net}\PY{p}{)}\PY{p}{:}
+             \PY{n}{W1} \PY{o}{=} \PY{n}{net}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{W1} \PY{o}{=} \PY{n}{W1}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{visualize\PYZus{}grid}\PY{p}{(}\PY{n}{W1}\PY{p}{,} \PY{n}{padding}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uint8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{show\PYZus{}net\PYZus{}weights}\PY{p}{(}\PY{n}{subopt\PYZus{}net}\PY{p}{)}
+         \PY{n}{show\PYZus{}net\PYZus{}weights}\PY{p}{(}\PY{n}{best\PYZus{}net}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{question}{%
+\subsection{Question:}\label{question}}
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\tightlist
+\item
+  What differences do you see in the weights between the suboptimal net
+  and the best net you arrived at?
+\end{enumerate}
+
+    \hypertarget{answer}{%
+\subsection{Answer:}\label{answer}}
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\tightlist
+\item
+  It is obvious that the subopt net has figured out some rough template
+  features of classes. Eg we roughly see the outline of a car in some
+  entries of the grip plot. Whoever, the features detectd by teh subopt
+  are so rough that they could only lead to a bad performance. On the
+  contrary, in the best network achieved, we see that the template
+  features detected are much more detailed, and naturally best\_net is
+  able to classify photos much more accurately.
+\end{enumerate}
+
+    \hypertarget{evaluate-on-test-set}{%
+\subsection{Evaluate on test set}\label{evaluate-on-test-set}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{test\PYZus{}acc} \PY{o}{=} \PY{p}{(}\PY{n}{best\PYZus{}net}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)} \PY{o}{==} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test accuracy: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{test\PYZus{}acc}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test accuracy:  0.462
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

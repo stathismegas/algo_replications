@@ -1,0 +1,649 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{fc\_net}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{k+kn}{from} \PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{.}\PY{n+nn}{layer\PYZus{}utils} \PY{k}{import} \PY{o}{*}
+        
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} }
+        \PY{l+s+sd}{This code was originally written for CS 231n at Stanford University}
+        \PY{l+s+sd}{(cs231n.stanford.edu).  It has been modified in various areas for use in the}
+        \PY{l+s+sd}{ECE 239AS class at UCLA.  This includes the descriptions of what code to}
+        \PY{l+s+sd}{implement as well as some slight potential changes in variable names to be}
+        \PY{l+s+sd}{consistent with class nomenclature.  We thank Justin Johnson \PYZam{} Serena Yeung for}
+        \PY{l+s+sd}{permission to use this code.  To see the original version, please visit}
+        \PY{l+s+sd}{cs231n.stanford.edu.  }
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+        \PY{k}{class} \PY{n+nc}{TwoLayerNet}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{  A two\PYZhy{}layer fully\PYZhy{}connected neural network with ReLU nonlinearity and}
+        \PY{l+s+sd}{  softmax loss that uses a modular layer design. We assume an input dimension}
+        \PY{l+s+sd}{  of D, a hidden dimension of H, and perform classification over C classes.}
+        \PY{l+s+sd}{  }
+        \PY{l+s+sd}{  The architecure should be affine \PYZhy{} relu \PYZhy{} affine \PYZhy{} softmax.}
+        
+        \PY{l+s+sd}{  Note that this class does not implement gradient descent; instead, it}
+        \PY{l+s+sd}{  will interact with a separate Solver object that is responsible for running}
+        \PY{l+s+sd}{  optimization.}
+        
+        \PY{l+s+sd}{  The learnable parameters of the model are stored in the dictionary}
+        \PY{l+s+sd}{  self.params that maps parameter names to numpy arrays.}
+        \PY{l+s+sd}{  \PYZdq{}\PYZdq{}\PYZdq{}}
+          
+          \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{3}\PY{o}{*}\PY{l+m+mi}{32}\PY{o}{*}\PY{l+m+mi}{32}\PY{p}{,} \PY{n}{hidden\PYZus{}dims}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}
+                       \PY{n}{dropout}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{weight\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,} \PY{n}{reg}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Initialize a new network.}
+        
+        \PY{l+s+sd}{    Inputs:}
+        \PY{l+s+sd}{    \PYZhy{} input\PYZus{}dim: An integer giving the size of the input}
+        \PY{l+s+sd}{    \PYZhy{} hidden\PYZus{}dims: An integer giving the size of the hidden layer}
+        \PY{l+s+sd}{    \PYZhy{} num\PYZus{}classes: An integer giving the number of classes to classify}
+        \PY{l+s+sd}{    \PYZhy{} dropout: Scalar between 0 and 1 giving dropout strength.}
+        \PY{l+s+sd}{    \PYZhy{} weight\PYZus{}scale: Scalar giving the standard deviation for random}
+        \PY{l+s+sd}{      initialization of the weights.}
+        \PY{l+s+sd}{    \PYZhy{} reg: Scalar giving L2 regularization strength.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{reg} \PY{o}{=} \PY{n}{reg}
+            
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            \PY{c+c1}{\PYZsh{} YOUR CODE HERE:}
+            \PY{c+c1}{\PYZsh{}   Initialize W1, W2, b1, and b2.  Store these as self.params[\PYZsq{}W1\PYZsq{}], }
+            \PY{c+c1}{\PYZsh{}   self.params[\PYZsq{}W2\PYZsq{}], self.params[\PYZsq{}b1\PYZsq{}] and self.params[\PYZsq{}b2\PYZsq{}]. The}
+            \PY{c+c1}{\PYZsh{}   biases are initialized to zero and the weights are initialized}
+            \PY{c+c1}{\PYZsh{}   so that each parameter has mean 0 and standard deviation weight\PYZus{}scale.}
+            \PY{c+c1}{\PYZsh{}   The dimensions of W1 should be (input\PYZus{}dim, hidden\PYZus{}dim) and the}
+            \PY{c+c1}{\PYZsh{}   dimensions of W2 should be (hidden\PYZus{}dims, num\PYZus{}classes)}
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            \PY{n}{std} \PY{o}{=} \PY{n}{weight\PYZus{}scale}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{std} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{input\PYZus{}dim}\PY{p}{,} \PY{n}{hidden\PYZus{}dims}\PY{p}{)}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{hidden\PYZus{}dims}\PY{p}{)}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{std} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{hidden\PYZus{}dims}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{)}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{num\PYZus{}classes}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            \PY{c+c1}{\PYZsh{} END YOUR CODE HERE}
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+        
+          \PY{k}{def} \PY{n+nf}{loss}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Compute loss and gradient for a minibatch of data.}
+        
+        \PY{l+s+sd}{    Inputs:}
+        \PY{l+s+sd}{    \PYZhy{} X: Array of input data of shape (N, d\PYZus{}1, ..., d\PYZus{}k)}
+        \PY{l+s+sd}{    \PYZhy{} y: Array of labels, of shape (N,). y[i] gives the label for X[i].}
+        
+        \PY{l+s+sd}{    Returns:}
+        \PY{l+s+sd}{    If y is None, then run a test\PYZhy{}time forward pass of the model and return:}
+        \PY{l+s+sd}{    \PYZhy{} scores: Array of shape (N, C) giving classification scores, where}
+        \PY{l+s+sd}{      scores[i, c] is the classification score for X[i] and class c.}
+        
+        \PY{l+s+sd}{    If y is not None, then run a training\PYZhy{}time forward and backward pass and}
+        \PY{l+s+sd}{    return a tuple of:}
+        \PY{l+s+sd}{    \PYZhy{} loss: Scalar value giving the loss}
+        \PY{l+s+sd}{    \PYZhy{} grads: Dictionary with the same keys as self.params, mapping parameter}
+        \PY{l+s+sd}{      names to gradients of the loss with respect to those parameters.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}  
+            \PY{n}{scores} \PY{o}{=} \PY{k+kc}{None}
+        
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            \PY{c+c1}{\PYZsh{} YOUR CODE HERE:}
+            \PY{c+c1}{\PYZsh{}   Implement the forward pass of the two\PYZhy{}layer neural network. Store}
+            \PY{c+c1}{\PYZsh{}   the class scores as the variable \PYZsq{}scores\PYZsq{}.  Be sure to use the layers}
+            \PY{c+c1}{\PYZsh{}   you prior implemented.}
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}    }
+            
+            \PY{n}{hidden}\PY{p}{,} \PY{n}{cache\PYZus{}hid} \PY{o}{=} \PY{n}{affine\PYZus{}forward}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{relu\PYZus{}scores}\PY{p}{,} \PY{n}{cache\PYZus{}relu} \PY{o}{=} \PY{n}{relu\PYZus{}forward}\PY{p}{(}\PY{n}{hidden}\PY{p}{)}
+            \PY{n}{scores}\PY{p}{,} \PY{n}{cache\PYZus{}scores} \PY{o}{=} \PY{n}{affine\PYZus{}forward}\PY{p}{(}\PY{n}{relu\PYZus{}scores}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                                    
+                                    
+            
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            \PY{c+c1}{\PYZsh{} END YOUR CODE HERE}
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            
+            \PY{c+c1}{\PYZsh{} If y is None then we are in test mode so just return scores}
+            \PY{k}{if} \PY{n}{y} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+              \PY{k}{return} \PY{n}{scores}
+            
+            \PY{n}{loss}\PY{p}{,} \PY{n}{grads} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            \PY{c+c1}{\PYZsh{} YOUR CODE HERE:}
+            \PY{c+c1}{\PYZsh{}   Implement the backward pass of the two\PYZhy{}layer neural net.  Store}
+            \PY{c+c1}{\PYZsh{}   the loss as the variable \PYZsq{}loss\PYZsq{} and store the gradients in the }
+            \PY{c+c1}{\PYZsh{}   \PYZsq{}grads\PYZsq{} dictionary.  For the grads dictionary, grads[\PYZsq{}W1\PYZsq{}] holds}
+            \PY{c+c1}{\PYZsh{}   the gradient for W1, grads[\PYZsq{}b1\PYZsq{}] holds the gradient for b1, etc.}
+            \PY{c+c1}{\PYZsh{}   i.e., grads[k] holds the gradient for self.params[k].}
+            \PY{c+c1}{\PYZsh{}}
+            \PY{c+c1}{\PYZsh{}   Add L2 regularization, where there is an added cost 0.5*self.reg*W\PYZca{}2}
+            \PY{c+c1}{\PYZsh{}   for each W.  Be sure to include the 0.5 multiplying factor to }
+            \PY{c+c1}{\PYZsh{}   match our implementation.}
+            \PY{c+c1}{\PYZsh{}}
+            \PY{c+c1}{\PYZsh{}   And be sure to use the layers you prior implemented.}
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}    }
+            
+            \PY{n}{N} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            
+            \PY{n}{loss}\PY{p}{,} \PY{n}{dscores} \PY{o}{=} \PY{n}{softmax\PYZus{}loss}\PY{p}{(}\PY{n}{scores}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+            \PY{n}{loss} \PY{o}{+}\PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{reg}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{reg}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+            \PY{n}{dx2}\PY{p}{,} \PY{n}{dw2}\PY{p}{,} \PY{n}{db2} \PY{o}{=} \PY{n}{affine\PYZus{}backward}\PY{p}{(}\PY{n}{dscores}\PY{p}{,} \PY{n}{cache\PYZus{}scores}\PY{p}{)}
+            \PY{n}{dxrelu} \PY{o}{=} \PY{n}{relu\PYZus{}backward}\PY{p}{(}\PY{n}{dx2}\PY{p}{,} \PY{n}{cache\PYZus{}relu}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print(np.shape(dxrelu), np.shape(dx2), np.shape(dscores) )}
+        
+            \PY{n}{dxrelu\PYZus{}reshaped} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{dxrelu}\PY{p}{,} \PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{dx1}\PY{p}{,} \PY{n}{dw1}\PY{p}{,} \PY{n}{db1} \PY{o}{=} \PY{n}{affine\PYZus{}backward}\PY{p}{(}\PY{n}{dxrelu\PYZus{}reshaped}\PY{p}{,} \PY{n}{cache\PYZus{}hid}\PY{p}{)}
+            \PY{n}{grads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dw2} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{reg} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{grads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{db2}
+            \PY{n}{grads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dw1} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{reg} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{grads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{db1}
+            
+            
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            \PY{c+c1}{\PYZsh{} END YOUR CODE HERE}
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            
+            \PY{k}{return} \PY{n}{loss}\PY{p}{,} \PY{n}{grads}
+        
+        
+        \PY{k}{class} \PY{n+nc}{FullyConnectedNet}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+          \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{  A fully\PYZhy{}connected neural network with an arbitrary number of hidden layers,}
+        \PY{l+s+sd}{  ReLU nonlinearities, and a softmax loss function. This will also implement}
+        \PY{l+s+sd}{  dropout and batch normalization as options. For a network with L layers,}
+        \PY{l+s+sd}{  the architecture will be}
+        \PY{l+s+sd}{  }
+        \PY{l+s+sd}{  \PYZob{}affine \PYZhy{} [batch norm] \PYZhy{} relu \PYZhy{} [dropout]\PYZcb{} x (L \PYZhy{} 1) \PYZhy{} affine \PYZhy{} softmax}
+        \PY{l+s+sd}{  }
+        \PY{l+s+sd}{  where batch normalization and dropout are optional, and the \PYZob{}...\PYZcb{} block is}
+        \PY{l+s+sd}{  repeated L \PYZhy{} 1 times.}
+        \PY{l+s+sd}{  }
+        \PY{l+s+sd}{  Similar to the TwoLayerNet above, learnable parameters are stored in the}
+        \PY{l+s+sd}{  self.params dictionary and will be learned using the Solver class.}
+        \PY{l+s+sd}{  \PYZdq{}\PYZdq{}\PYZdq{}}
+        
+          \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{hidden\PYZus{}dims}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{3}\PY{o}{*}\PY{l+m+mi}{32}\PY{o}{*}\PY{l+m+mi}{32}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}
+                       \PY{n}{dropout}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{use\PYZus{}batchnorm}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{reg}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,}
+                       \PY{n}{weight\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}2}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Initialize a new FullyConnectedNet.}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Inputs:}
+        \PY{l+s+sd}{    \PYZhy{} hidden\PYZus{}dims: A list of integers giving the size of each hidden layer.}
+        \PY{l+s+sd}{    \PYZhy{} input\PYZus{}dim: An integer giving the size of the input.}
+        \PY{l+s+sd}{    \PYZhy{} num\PYZus{}classes: An integer giving the number of classes to classify.}
+        \PY{l+s+sd}{    \PYZhy{} dropout: Scalar between 0 and 1 giving dropout strength. If dropout=0 then}
+        \PY{l+s+sd}{      the network should not use dropout at all.}
+        \PY{l+s+sd}{    \PYZhy{} use\PYZus{}batchnorm: Whether or not the network should use batch normalization.}
+        \PY{l+s+sd}{    \PYZhy{} reg: Scalar giving L2 regularization strength.}
+        \PY{l+s+sd}{    \PYZhy{} weight\PYZus{}scale: Scalar giving the standard deviation for random}
+        \PY{l+s+sd}{      initialization of the weights.}
+        \PY{l+s+sd}{    \PYZhy{} dtype: A numpy datatype object; all computations will be performed using}
+        \PY{l+s+sd}{      this datatype. float32 is faster but less accurate, so you should use}
+        \PY{l+s+sd}{      float64 for numeric gradient checking.}
+        \PY{l+s+sd}{    \PYZhy{} seed: If not None, then pass this random seed to the dropout layers. This}
+        \PY{l+s+sd}{      will make the dropout layers deteriminstic so we can gradient check the}
+        \PY{l+s+sd}{      model.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{use\PYZus{}batchnorm} \PY{o}{=} \PY{n}{use\PYZus{}batchnorm}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{use\PYZus{}dropout} \PY{o}{=} \PY{n}{dropout} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{reg} \PY{o}{=} \PY{n}{reg}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}layers} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{+} \PY{n+nb}{len}\PY{p}{(}\PY{n}{hidden\PYZus{}dims}\PY{p}{)}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dtype} \PY{o}{=} \PY{n}{dtype}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            \PY{c+c1}{\PYZsh{} YOUR CODE HERE:}
+            \PY{c+c1}{\PYZsh{}   Initialize all parameters of the network in the self.params dictionary.}
+            \PY{c+c1}{\PYZsh{}   The weights and biases of layer 1 are W1 and b1; and in general the }
+            \PY{c+c1}{\PYZsh{}   weights and biases of layer i are Wi and bi. The}
+            \PY{c+c1}{\PYZsh{}   biases are initialized to zero and the weights are initialized}
+            \PY{c+c1}{\PYZsh{}   so that each parameter has mean 0 and standard deviation weight\PYZus{}scale.}
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            
+            
+            \PY{n}{L} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}layers}
+            \PY{n}{names} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{L}\PY{o}{+}\PY{l+m+mi}{1} \PY{p}{)}\PY{p}{]}
+            
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{L}\PY{p}{)}\PY{p}{:}
+                \PY{n}{std} \PY{o}{=} \PY{n}{weight\PYZus{}scale}
+                \PY{n}{string} \PY{o}{=} \PY{n}{names}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                \PY{k}{if} \PY{n}{i}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n}{string}\PY{p}{]} \PY{o}{=} \PY{n}{std} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{input\PYZus{}dim}\PY{p}{,} \PY{n}{hidden\PYZus{}dims}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{string}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{hidden\PYZus{}dims}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                \PY{k}{elif} \PY{n}{i}\PY{o}{!=}\PY{n}{L}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n}{string}\PY{p}{]} \PY{o}{=} \PY{n}{std} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{hidden\PYZus{}dims}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{hidden\PYZus{}dims}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{string}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{hidden\PYZus{}dims}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}  
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n}{string}\PY{p}{]} \PY{o}{=} \PY{n}{std} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{hidden\PYZus{}dims}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{p}{)}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{string}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{num\PYZus{}classes}\PY{p}{)} 
+                    
+                \PY{c+c1}{\PYZsh{}print(\PYZsq{}W\PYZsq{}+ string,\PYZsq{}: \PYZsq{}, np.shape(self.params[\PYZsq{}W\PYZsq{}+ string] )  )}
+        
+        
+        
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            \PY{c+c1}{\PYZsh{} END YOUR CODE HERE}
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            
+            \PY{c+c1}{\PYZsh{} When using dropout we need to pass a dropout\PYZus{}param dictionary to each}
+            \PY{c+c1}{\PYZsh{} dropout layer so that the layer knows the dropout probability and the mode}
+            \PY{c+c1}{\PYZsh{} (train / test). You can pass the same dropout\PYZus{}param to each dropout layer.}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dropout\PYZus{}param} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+            \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{use\PYZus{}dropout}\PY{p}{:}
+              \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dropout\PYZus{}param} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{dropout}\PY{p}{\PYZcb{}}
+              \PY{k}{if} \PY{n}{seed} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dropout\PYZus{}param}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{seed}
+            
+            \PY{c+c1}{\PYZsh{} With batch normalization we need to keep track of running means and}
+            \PY{c+c1}{\PYZsh{} variances, so we need to pass a special bn\PYZus{}param object to each batch}
+            \PY{c+c1}{\PYZsh{} normalization layer. You should pass self.bn\PYZus{}params[0] to the forward pass}
+            \PY{c+c1}{\PYZsh{} of the first batch normalization layer, self.bn\PYZus{}params[1] to the forward}
+            \PY{c+c1}{\PYZsh{} pass of the second batch normalization layer, etc.}
+            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bn\PYZus{}params} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{use\PYZus{}batchnorm}\PY{p}{:}
+              \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bn\PYZus{}params} \PY{o}{=} \PY{p}{[}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}layers} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+            
+            \PY{c+c1}{\PYZsh{} Cast all parameters to the correct datatype}
+            \PY{k}{for} \PY{n}{k}\PY{p}{,} \PY{n}{v} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{v}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{dtype}\PY{p}{)}
+        
+        
+          \PY{k}{def} \PY{n+nf}{loss}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Compute loss and gradient for the fully\PYZhy{}connected net.}
+        
+        \PY{l+s+sd}{    Input / output: Same as TwoLayerNet above.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{X} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dtype}\PY{p}{)}
+            \PY{n}{mode} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{n}{y} \PY{o+ow}{is} \PY{k+kc}{None} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}
+        
+            \PY{c+c1}{\PYZsh{} Set train/test mode for batchnorm params and dropout param since they}
+            \PY{c+c1}{\PYZsh{} behave differently during training and testing.}
+            \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dropout\PYZus{}param} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+              \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dropout\PYZus{}param}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{mode}   
+            \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{use\PYZus{}batchnorm}\PY{p}{:}
+              \PY{k}{for} \PY{n}{bn\PYZus{}param} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{bn\PYZus{}params}\PY{p}{:}
+                \PY{n}{bn\PYZus{}param}\PY{p}{[}\PY{n}{mode}\PY{p}{]} \PY{o}{=} \PY{n}{mode}
+        
+            \PY{n}{scores} \PY{o}{=} \PY{k+kc}{None}
+            
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            \PY{c+c1}{\PYZsh{} YOUR CODE HERE:}
+            \PY{c+c1}{\PYZsh{}   Implement the forward pass of the FC net and store the output}
+            \PY{c+c1}{\PYZsh{}   scores as the variable \PYZdq{}scores\PYZdq{}.}
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            
+            \PY{n}{L} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}layers}
+            \PY{n}{names} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{L}\PY{o}{+}\PY{l+m+mi}{1} \PY{p}{)}\PY{p}{]}
+            
+            \PY{n}{x} \PY{o}{=} \PY{n}{X}
+            \PY{n}{caches} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+        
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}layers}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}print(\PYZsq{}we are in the layer \PYZsh{}\PYZsq{}, i+1)}
+                \PY{n}{w} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{names}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+                \PY{n}{b} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{names}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}
+                \PY{n}{x}\PY{p}{,} \PY{n}{cache} \PY{o}{=} \PY{n}{affine\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}print(\PYZsq{}the w in teh cache has dims: \PYZsq{}, np.shape(cache[1]) )}
+                \PY{n}{caches}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cache}\PY{p}{)}
+                \PY{n}{x}\PY{p}{,} \PY{n}{cache} \PY{o}{=} \PY{n}{relu\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                \PY{n}{caches}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cache}\PY{p}{)}
+            
+            \PY{n}{w} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{names}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+            \PY{n}{b} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{names}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+            \PY{n}{x}\PY{p}{,} \PY{n}{cache} \PY{o}{=} \PY{n}{affine\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print(\PYZsq{}init cache is \PYZsq{}, np.shape(cache[1] ) )}
+        
+            \PY{n}{caches}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cache}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print(\PYZsq{}there are \PYZsq{}, len(caches), \PYZsq{} entries in caches\PYZsq{})}
+            \PY{n}{scores} \PY{o}{=} \PY{n}{x}
+        
+        
+        
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            \PY{c+c1}{\PYZsh{} END YOUR CODE HERE}
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            
+            \PY{c+c1}{\PYZsh{} If test mode return early}
+            \PY{k}{if} \PY{n}{mode} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+              \PY{k}{return} \PY{n}{scores}
+        
+            \PY{n}{loss}\PY{p}{,} \PY{n}{grads} \PY{o}{=} \PY{l+m+mf}{0.0}\PY{p}{,} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            \PY{c+c1}{\PYZsh{} YOUR CODE HERE:}
+            \PY{c+c1}{\PYZsh{}   Implement the backwards pass of the FC net and store the gradients}
+            \PY{c+c1}{\PYZsh{}   in the grads dict, so that grads[k] is the gradient of self.params[k]}
+            \PY{c+c1}{\PYZsh{}   Be sure your L2 regularization includes a 0.5 factor.}
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+        
+        
+            \PY{n}{loss}\PY{p}{,} \PY{n}{softmax\PYZus{}grad} \PY{o}{=} \PY{n}{softmax\PYZus{}loss}\PY{p}{(}\PY{n}{scores}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}layers}\PY{p}{)}\PY{p}{:}
+                \PY{n}{w} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{names}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{p}{]}
+                \PY{n}{loss} \PY{o}{+}\PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{reg} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{w} \PY{o}{*} \PY{n}{w}\PY{p}{)} 
+        
+                
+                
+            \PY{n}{dout} \PY{o}{=} \PY{n}{softmax\PYZus{}grad}
+            \PY{c+c1}{\PYZsh{}print(\PYZsq{}shape of dout is \PYZsq{}, np.shape(dout) )}
+            \PY{c+c1}{\PYZsh{}print(\PYZsq{}cache is \PYZsq{}, np.shape(caches[self.num\PYZus{}layers ][0]) , np.shape(caches[self.num\PYZus{}layers ][1] ) )}
+        
+            
+            \PY{n}{dout}\PY{p}{,} \PY{n}{dw}\PY{p}{,} \PY{n}{db} \PY{o}{=} \PY{n}{affine\PYZus{}backward}\PY{p}{(}\PY{n}{dout}\PY{p}{,} \PY{n}{caches}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{caches}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+            
+            \PY{n}{grads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}layers}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{dw} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{reg} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}layers}\PY{p}{)}\PY{p}{]}
+            \PY{n}{grads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}layers}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{db}
+            \PY{c+c1}{\PYZsh{}print(\PYZdq{}now we are in teh outside layer\PYZdq{}, \PYZsq{}W\PYZsq{} + str(self.num\PYZus{}layers))}
+            
+            \PY{n}{name\PYZus{}index} \PY{o}{=} \PY{n}{L}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{caches}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}print(\PYZdq{}now we are in layer \PYZsh{}\PYZdq{}, i)}
+                \PY{n}{dout} \PY{o}{=} \PY{n}{relu\PYZus{}backward}\PY{p}{(}\PY{n}{dout}\PY{p}{,} \PY{n}{caches}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                \PY{n}{dx}\PY{p}{,} \PY{n}{dw}\PY{p}{,} \PY{n}{db} \PY{o}{=} \PY{n}{affine\PYZus{}backward}\PY{p}{(}\PY{n}{dout}\PY{p}{,} \PY{n}{caches}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{p}{)}
+                \PY{c+c1}{\PYZsh{}print(\PYZsq{} the neames is \PYZsq{}, names[name\PYZus{}index])}
+                \PY{c+c1}{\PYZsh{}print(\PYZsq{} the self.params[W + names[name\PYZus{}index]  ]  is \PYZsq{}, np.shape(self.params[\PYZsq{}W\PYZsq{} + names[name\PYZus{}index]  ] ) )}
+                \PY{c+c1}{\PYZsh{}print(\PYZsq{}W\PYZsq{} + names[name\PYZus{}index] ,\PYZsq{} the dw  is \PYZsq{}, np.shape( dw ) )}
+                \PY{n}{grads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{names}\PY{p}{[}\PY{n}{name\PYZus{}index}\PY{p}{]} \PY{p}{]} \PY{o}{=} \PY{n}{dw} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{reg} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{names}\PY{p}{[}\PY{n}{name\PYZus{}index}\PY{p}{]}  \PY{p}{]}
+                \PY{n}{grads}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{names}\PY{p}{[}\PY{n}{name\PYZus{}index}\PY{p}{]} \PY{p}{]} \PY{o}{=} \PY{n}{db}
+                \PY{n}{name\PYZus{}index} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+                \PY{n}{dout} \PY{o}{=} \PY{n}{dx}
+        
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            \PY{c+c1}{\PYZsh{} END YOUR CODE HERE}
+            \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+            \PY{k}{return} \PY{n}{loss}\PY{p}{,} \PY{n}{grads}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
