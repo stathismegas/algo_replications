@@ -1,0 +1,856 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Batch-Normalization}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{batch-normalization}{%
+\section{Batch Normalization}\label{batch-normalization}}
+
+In this notebook, you will implement the batch normalization layers of a
+neural network to increase its performance. Please review the details of
+batch normalization from the lecture notes.
+
+CS231n has built a solid API for building these modular frameworks and
+training them, and we will use their very well implemented framework as
+opposed to ``reinventing the wheel.'' This includes using their Solver,
+various utility functions, and their layer structure. This also includes
+nndl.fc\_net, nndl.layers, and nndl.layer\_utils. As in prior
+assignments, we thank Serena Yeung \& Justin Johnson for permission to
+use code written for the CS 231n class (cs231n.stanford.edu).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Import and setups}
+         
+         \PY{k+kn}{import} \PY{n+nn}{time}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{nndl}\PY{n+nn}{.}\PY{n+nn}{fc\PYZus{}net} \PY{k}{import} \PY{o}{*}
+         \PY{k+kn}{from} \PY{n+nn}{nndl}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{o}{*}
+         \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{data\PYZus{}utils} \PY{k}{import} \PY{n}{get\PYZus{}CIFAR10\PYZus{}data}
+         \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{gradient\PYZus{}check} \PY{k}{import} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient}\PY{p}{,} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}
+         \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{solver} \PY{k}{import} \PY{n}{Solver}
+         
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{10.0}\PY{p}{,} \PY{l+m+mf}{8.0}\PY{p}{)} \PY{c+c1}{\PYZsh{} set default size of plots}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.interpolation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.cmap}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{c+c1}{\PYZsh{} for auto\PYZhy{}reloading external modules}
+         \PY{c+c1}{\PYZsh{} see http://stackoverflow.com/questions/1907993/autoreload\PYZhy{}of\PYZhy{}modules\PYZhy{}in\PYZhy{}ipython}
+         \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} autoreload
+         \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+         
+         \PY{k}{def} \PY{n+nf}{rel\PYZus{}error}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+           \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} returns relative error \PYZdq{}\PYZdq{}\PYZdq{}}
+           \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{maximum}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}8}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The autoreload extension is already loaded. To reload it, use:
+  \%reload\_ext autoreload
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} Load the (preprocessed) CIFAR10 data.}
+         
+         \PY{n}{data} \PY{o}{=} \PY{n}{get\PYZus{}CIFAR10\PYZus{}data}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{data}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+           \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+X\_train: (49000, 3, 32, 32) 
+y\_train: (49000,) 
+X\_val: (1000, 3, 32, 32) 
+y\_val: (1000,) 
+X\_test: (1000, 3, 32, 32) 
+y\_test: (1000,) 
+
+    \end{Verbatim}
+
+    \hypertarget{batchnorm-forward-pass}{%
+\subsection{Batchnorm forward pass}\label{batchnorm-forward-pass}}
+
+Implement the training time batchnorm forward pass,
+\texttt{batchnorm\_forward}, in \texttt{nndl/layers.py}. After that,
+test your implementation by running the following cell.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} Check the training\PYZhy{}time forward pass by checking means and variances}
+         \PY{c+c1}{\PYZsh{} of features both before and after batch normalization}
+         
+         \PY{c+c1}{\PYZsh{} Simulate the forward pass for a two\PYZhy{}layer network}
+         \PY{n}{N}\PY{p}{,} \PY{n}{D1}\PY{p}{,} \PY{n}{D2}\PY{p}{,} \PY{n}{D3} \PY{o}{=} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{60}\PY{p}{,} \PY{l+m+mi}{3}
+         \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{D1}\PY{p}{)}
+         \PY{n}{W1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{D1}\PY{p}{,} \PY{n}{D2}\PY{p}{)}
+         \PY{n}{W2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{D2}\PY{p}{,} \PY{n}{D3}\PY{p}{)}
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{maximum}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W2}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Before batch normalization:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{  means: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{a}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{  stds: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{a}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Means should be close to zero and stds close to one}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{After batch normalization (gamma=1, beta=0)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{a\PYZus{}norm}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{batchnorm\PYZus{}forward}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{D3}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{D3}\PY{p}{)}\PY{p}{,} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{  mean: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{a\PYZus{}norm}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{  std: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{a\PYZus{}norm}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Now means should be close to beta and stds close to gamma}
+         \PY{n}{gamma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{2.0}\PY{p}{,} \PY{l+m+mf}{3.0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{beta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{11.0}\PY{p}{,} \PY{l+m+mf}{12.0}\PY{p}{,} \PY{l+m+mf}{13.0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{a\PYZus{}norm}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{batchnorm\PYZus{}forward}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{After batch normalization (nontrivial gamma, beta)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{  means: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{a\PYZus{}norm}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{  stds: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{a\PYZus{}norm}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Before batch normalization:
+  means:  [-10.72317378 -23.96027117 -28.21227696]
+  stds:  [ 36.6364727   36.30714166  33.05678896]
+After batch normalization (gamma=1, beta=0)
+  mean:  [  6.73072709e-17   3.75255382e-16  -1.65145675e-17]
+  std:  [ 1.  1.  1.]
+After batch normalization (nontrivial gamma, beta)
+  means:  [ 11.  12.  13.]
+  stds:  [ 1.          1.99999999  2.99999999]
+
+    \end{Verbatim}
+
+    Implement the testing time batchnorm forward pass,
+\texttt{batchnorm\_forward}, in \texttt{nndl/layers.py}. After that,
+test your implementation by running the following cell.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} Check the test\PYZhy{}time forward pass by running the training\PYZhy{}time}
+         \PY{c+c1}{\PYZsh{} forward pass many times to warm up the running averages, and then}
+         \PY{c+c1}{\PYZsh{} checking the means and variances of activations after a test\PYZhy{}time}
+         \PY{c+c1}{\PYZsh{} forward pass.}
+         
+         \PY{n}{N}\PY{p}{,} \PY{n}{D1}\PY{p}{,} \PY{n}{D2}\PY{p}{,} \PY{n}{D3} \PY{o}{=} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{60}\PY{p}{,} \PY{l+m+mi}{3}
+         \PY{n}{W1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{D1}\PY{p}{,} \PY{n}{D2}\PY{p}{)}
+         \PY{n}{W2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{D2}\PY{p}{,} \PY{n}{D3}\PY{p}{)}
+         
+         \PY{n}{bn\PYZus{}param} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         \PY{n}{gamma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{D3}\PY{p}{)}
+         \PY{n}{beta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{D3}\PY{p}{)}
+         \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{:}
+           \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{D1}\PY{p}{)}
+           \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{maximum}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W2}\PY{p}{)}
+           \PY{n}{batchnorm\PYZus{}forward}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{bn\PYZus{}param}\PY{p}{)}
+         \PY{n}{bn\PYZus{}param}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{D1}\PY{p}{)}
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{maximum}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W2}\PY{p}{)}
+         \PY{n}{a\PYZus{}norm}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{batchnorm\PYZus{}forward}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{bn\PYZus{}param}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Means should be close to zero and stds close to one, but will be}
+         \PY{c+c1}{\PYZsh{} noisier than training\PYZhy{}time forward passes.}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{After batch normalization (test\PYZhy{}time):}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{  means: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{a\PYZus{}norm}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{  stds: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{a\PYZus{}norm}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+After batch normalization (test-time):
+  means:  [-0.01574468  0.05018803 -0.04722696]
+  stds:  [ 0.97146815  0.9448945   1.03960547]
+
+    \end{Verbatim}
+
+    \hypertarget{batchnorm-backward-pass}{%
+\subsection{Batchnorm backward pass}\label{batchnorm-backward-pass}}
+
+Implement the backward pass for the batchnorm layer,
+\texttt{batchnorm\_backward} in \texttt{nndl/layers.py}. Check your
+implementation by running the following cell.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} Gradient check batchnorm backward pass}
+         
+         \PY{n}{N}\PY{p}{,} \PY{n}{D} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}
+         \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{5} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{D}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{12}
+         \PY{n}{gamma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+         \PY{n}{beta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+         \PY{n}{dout} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{D}\PY{p}{)}
+         
+         \PY{n}{bn\PYZus{}param} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         \PY{n}{fx} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{batchnorm\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{bn\PYZus{}param}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{fg} \PY{o}{=} \PY{k}{lambda} \PY{n}{a}\PY{p}{:} \PY{n}{batchnorm\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{bn\PYZus{}param}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{fb} \PY{o}{=} \PY{k}{lambda} \PY{n}{b}\PY{p}{:} \PY{n}{batchnorm\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{bn\PYZus{}param}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{n}{dx\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fx}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{dout}\PY{p}{)}
+         \PY{n}{da\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fg}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{dout}\PY{p}{)}
+         \PY{n}{db\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient\PYZus{}array}\PY{p}{(}\PY{n}{fb}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{dout}\PY{p}{)}
+         
+         \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{cache} \PY{o}{=} \PY{n}{batchnorm\PYZus{}forward}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{bn\PYZus{}param}\PY{p}{)}
+         \PY{n}{dx}\PY{p}{,} \PY{n}{dgamma}\PY{p}{,} \PY{n}{dbeta} \PY{o}{=} \PY{n}{batchnorm\PYZus{}backward}\PY{p}{(}\PY{n}{dout}\PY{p}{,} \PY{n}{cache}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dx error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{dx\PYZus{}num}\PY{p}{,} \PY{n}{dx}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dgamma error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{da\PYZus{}num}\PY{p}{,} \PY{n}{dgamma}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dbeta error: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{db\PYZus{}num}\PY{p}{,} \PY{n}{dbeta}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+dx error:  2.76131460647e-09
+dgamma error:  5.28501631015e-12
+dbeta error:  3.27557685192e-12
+
+    \end{Verbatim}
+
+    \hypertarget{implement-a-fully-connected-neural-network-with-batchnorm-layers}{%
+\subsection{Implement a fully connected neural network with batchnorm
+layers}\label{implement-a-fully-connected-neural-network-with-batchnorm-layers}}
+
+Modify the \texttt{FullyConnectedNet()} class in
+\texttt{nndl/fc\_net.py} to incorporate batchnorm layers. You will need
+to modify the class in the following areas:
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\item
+  The gammas and betas need to be initialized to 1's and 0's
+  respectively in \texttt{\_\_init\_\_}.
+\item
+  The \texttt{batchnorm\_forward} layer needs to be inserted between
+  each affine and relu layer (except in the output layer) in a forward
+  pass computation in \texttt{loss}. You may find it helpful to write an
+  \texttt{affine\_batchnorm\_relu()} layer in
+  \texttt{nndl/layer\_utils.py} although this is not necessary.
+\item
+  The \texttt{batchnorm\_backward} layer has to be appropriately
+  inserted when calculating gradients.
+\end{enumerate}
+
+After you have done the appropriate modifications, check your
+implementation by running the following cell.
+
+Note, while the relative error for W3 should be small, as we backprop
+gradients more, you may find the relative error increases. Our relative
+error for W1 is on the order of 1e-4.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{N}\PY{p}{,} \PY{n}{D}\PY{p}{,} \PY{n}{H1}\PY{p}{,} \PY{n}{H2}\PY{p}{,} \PY{n}{C} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{10}
+         \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{D}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{C}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{reg} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{3.14}\PY{p}{]}\PY{p}{:}
+           \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Running check with reg = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{reg}\PY{p}{)}
+           \PY{n}{model} \PY{o}{=} \PY{n}{FullyConnectedNet}\PY{p}{(}\PY{p}{[}\PY{n}{H1}\PY{p}{,} \PY{n}{H2}\PY{p}{]}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{n}{D}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{n}{C}\PY{p}{,}
+                                     \PY{n}{reg}\PY{o}{=}\PY{n}{reg}\PY{p}{,} \PY{n}{weight\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{5e\PYZhy{}2}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{float64}\PY{p}{,}
+                                     \PY{n}{use\PYZus{}batchnorm}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+           \PY{n}{loss}\PY{p}{,} \PY{n}{grads} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{loss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+           \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Initial loss: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{loss}\PY{p}{)}
+         
+           \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{grads}\PY{p}{)}\PY{p}{:}
+             \PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{\PYZus{}}\PY{p}{:} \PY{n}{model}\PY{o}{.}\PY{n}{loss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{grad\PYZus{}num} \PY{o}{=} \PY{n}{eval\PYZus{}numerical\PYZus{}gradient}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{model}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{h}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}5}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ relative error: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{name}\PY{p}{,} \PY{n}{rel\PYZus{}error}\PY{p}{(}\PY{n}{grad\PYZus{}num}\PY{p}{,} \PY{n}{grads}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+           \PY{k}{if} \PY{n}{reg} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Running check with reg =  0
+Initial loss:  2.41650020747
+W1 relative error: 5.985749731163056e-05
+W2 relative error: 2.7451619993354665e-05
+W3 relative error: 1.62647725491626e-09
+b1 relative error: 0.0
+b2 relative error: 0.0
+b3 relative error: 1.2573369412722414e-10
+beta1 relative error: 4.596102177627084e-09
+beta2 relative error: 2.9270384543944824e-09
+gamma1 relative error: 4.550901225892006e-09
+gamma2 relative error: 3.6685936695841338e-09
+
+
+Running check with reg =  3.14
+Initial loss:  6.74771978744
+W1 relative error: 6.139323185925442e-05
+W2 relative error: 3.571174504398055e-06
+W3 relative error: 3.528833394780356e-08
+b1 relative error: 0.004440892098500625
+b2 relative error: 0.004440892098500625
+b3 relative error: 2.7546031757937963e-10
+beta1 relative error: 9.208007229374668e-08
+beta2 relative error: 3.1981564030343375e-08
+gamma1 relative error: 4.064932024614984e-08
+gamma2 relative error: 7.047072535184226e-08
+
+    \end{Verbatim}
+
+    \hypertarget{training-a-deep-fully-connected-network-with-batch-normalization.}{%
+\subsection{Training a deep fully connected network with batch
+normalization.}\label{training-a-deep-fully-connected-network-with-batch-normalization.}}
+
+To see if batchnorm helps, let's train a deep neural network with and
+without batch normalization.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{c+c1}{\PYZsh{} Try training a very deep net with batchnorm}
+         \PY{n}{hidden\PYZus{}dims} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{]}
+         
+         \PY{n}{num\PYZus{}train} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{small\PYZus{}data} \PY{o}{=} \PY{p}{\PYZob{}}
+           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{n}{num\PYZus{}train}\PY{p}{]}\PY{p}{,}
+           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{n}{num\PYZus{}train}\PY{p}{]}\PY{p}{,}
+           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{weight\PYZus{}scale} \PY{o}{=} \PY{l+m+mf}{2e\PYZhy{}2}
+         \PY{n}{bn\PYZus{}model} \PY{o}{=} \PY{n}{FullyConnectedNet}\PY{p}{(}\PY{n}{hidden\PYZus{}dims}\PY{p}{,} \PY{n}{weight\PYZus{}scale}\PY{o}{=}\PY{n}{weight\PYZus{}scale}\PY{p}{,} \PY{n}{use\PYZus{}batchnorm}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{model} \PY{o}{=} \PY{n}{FullyConnectedNet}\PY{p}{(}\PY{n}{hidden\PYZus{}dims}\PY{p}{,} \PY{n}{weight\PYZus{}scale}\PY{o}{=}\PY{n}{weight\PYZus{}scale}\PY{p}{,} \PY{n}{use\PYZus{}batchnorm}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{defined the models}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{bn\PYZus{}solver} \PY{o}{=} \PY{n}{Solver}\PY{p}{(}\PY{n}{bn\PYZus{}model}\PY{p}{,} \PY{n}{small\PYZus{}data}\PY{p}{,}
+                         \PY{n}{num\PYZus{}epochs}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}
+                         \PY{n}{update\PYZus{}rule}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{optim\PYZus{}config}\PY{o}{=}\PY{p}{\PYZob{}}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}
+                         \PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{print\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{now let us train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{bn\PYZus{}solver}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{solver} \PY{o}{=} \PY{n}{Solver}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{small\PYZus{}data}\PY{p}{,}
+                         \PY{n}{num\PYZus{}epochs}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}
+                         \PY{n}{update\PYZus{}rule}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{optim\PYZus{}config}\PY{o}{=}\PY{p}{\PYZob{}}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}
+                         \PY{p}{\PYZcb{}}\PY{p}{,}
+                         \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{print\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{)}
+         \PY{n}{solver}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+defined the models
+now let us train
+(Iteration 1 / 200) loss: 2.266888
+(Epoch 0 / 10) train acc: 0.160000; val\_acc: 0.135000
+(Epoch 1 / 10) train acc: 0.331000; val\_acc: 0.275000
+(Epoch 2 / 10) train acc: 0.414000; val\_acc: 0.315000
+(Epoch 3 / 10) train acc: 0.496000; val\_acc: 0.303000
+(Epoch 4 / 10) train acc: 0.549000; val\_acc: 0.313000
+(Epoch 5 / 10) train acc: 0.586000; val\_acc: 0.306000
+(Epoch 6 / 10) train acc: 0.639000; val\_acc: 0.326000
+(Epoch 7 / 10) train acc: 0.691000; val\_acc: 0.311000
+(Epoch 8 / 10) train acc: 0.739000; val\_acc: 0.342000
+(Epoch 9 / 10) train acc: 0.779000; val\_acc: 0.328000
+(Epoch 10 / 10) train acc: 0.819000; val\_acc: 0.307000
+(Iteration 1 / 200) loss: 2.302211
+(Epoch 0 / 10) train acc: 0.112000; val\_acc: 0.115000
+(Epoch 1 / 10) train acc: 0.275000; val\_acc: 0.238000
+(Epoch 2 / 10) train acc: 0.315000; val\_acc: 0.280000
+(Epoch 3 / 10) train acc: 0.352000; val\_acc: 0.280000
+(Epoch 4 / 10) train acc: 0.384000; val\_acc: 0.285000
+(Epoch 5 / 10) train acc: 0.386000; val\_acc: 0.293000
+(Epoch 6 / 10) train acc: 0.444000; val\_acc: 0.285000
+(Epoch 7 / 10) train acc: 0.444000; val\_acc: 0.295000
+(Epoch 8 / 10) train acc: 0.544000; val\_acc: 0.314000
+(Epoch 9 / 10) train acc: 0.569000; val\_acc: 0.314000
+(Epoch 10 / 10) train acc: 0.527000; val\_acc: 0.306000
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iteration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{solver}\PY{o}{.}\PY{n}{loss\PYZus{}history}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{baseline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{bn\PYZus{}solver}\PY{o}{.}\PY{n}{loss\PYZus{}history}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{batchnorm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{solver}\PY{o}{.}\PY{n}{train\PYZus{}acc\PYZus{}history}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{baseline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{bn\PYZus{}solver}\PY{o}{.}\PY{n}{train\PYZus{}acc\PYZus{}history}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{batchnorm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{solver}\PY{o}{.}\PY{n}{val\PYZus{}acc\PYZus{}history}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{baseline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{bn\PYZus{}solver}\PY{o}{.}\PY{n}{val\PYZus{}acc\PYZus{}history}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{batchnorm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+           
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{:}
+           \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{i}\PY{p}{)}
+           \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ncol}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{gcf}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/stathismegas/opt/anaconda3/envs/nndl/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:106: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{batchnorm-and-initialization}{%
+\subsection{Batchnorm and
+initialization}\label{batchnorm-and-initialization}}
+
+The following cells run an experiment where for a deep network, the
+initialization is varied. We do training for when batchnorm layers are
+and are not included.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{c+c1}{\PYZsh{} Try training a very deep net with batchnorm}
+         \PY{n}{hidden\PYZus{}dims} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{]}
+         
+         
+         \PY{k+kn}{import} \PY{n+nn}{warnings}
+         \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ignore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{num\PYZus{}train} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{small\PYZus{}data} \PY{o}{=} \PY{p}{\PYZob{}}
+           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{n}{num\PYZus{}train}\PY{p}{]}\PY{p}{,}
+           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{n}{num\PYZus{}train}\PY{p}{]}\PY{p}{,}
+           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}val}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{bn\PYZus{}solvers} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{solvers} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{weight\PYZus{}scales} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{weight\PYZus{}scale} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{weight\PYZus{}scales}\PY{p}{)}\PY{p}{:}
+           \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Running weight scale }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ / }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{weight\PYZus{}scales}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+           \PY{n}{bn\PYZus{}model} \PY{o}{=} \PY{n}{FullyConnectedNet}\PY{p}{(}\PY{n}{hidden\PYZus{}dims}\PY{p}{,} \PY{n}{weight\PYZus{}scale}\PY{o}{=}\PY{n}{weight\PYZus{}scale}\PY{p}{,} \PY{n}{use\PYZus{}batchnorm}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+           \PY{n}{model} \PY{o}{=} \PY{n}{FullyConnectedNet}\PY{p}{(}\PY{n}{hidden\PYZus{}dims}\PY{p}{,} \PY{n}{weight\PYZus{}scale}\PY{o}{=}\PY{n}{weight\PYZus{}scale}\PY{p}{,} \PY{n}{use\PYZus{}batchnorm}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+           \PY{n}{bn\PYZus{}solver} \PY{o}{=} \PY{n}{Solver}\PY{p}{(}\PY{n}{bn\PYZus{}model}\PY{p}{,} \PY{n}{small\PYZus{}data}\PY{p}{,}
+                           \PY{n}{num\PYZus{}epochs}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}
+                           \PY{n}{update\PYZus{}rule}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{n}{optim\PYZus{}config}\PY{o}{=}\PY{p}{\PYZob{}}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}
+                           \PY{p}{\PYZcb{}}\PY{p}{,}
+                           \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{print\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{)}
+           \PY{n}{bn\PYZus{}solver}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)}
+           \PY{n}{bn\PYZus{}solvers}\PY{p}{[}\PY{n}{weight\PYZus{}scale}\PY{p}{]} \PY{o}{=} \PY{n}{bn\PYZus{}solver}
+         
+           \PY{n}{solver} \PY{o}{=} \PY{n}{Solver}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{small\PYZus{}data}\PY{p}{,}
+                           \PY{n}{num\PYZus{}epochs}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}
+                           \PY{n}{update\PYZus{}rule}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{n}{optim\PYZus{}config}\PY{o}{=}\PY{p}{\PYZob{}}
+                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,}
+                           \PY{p}{\PYZcb{}}\PY{p}{,}
+                           \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{print\PYZus{}every}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{)}
+           \PY{n}{solver}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)}
+           \PY{n}{solvers}\PY{p}{[}\PY{n}{weight\PYZus{}scale}\PY{p}{]} \PY{o}{=} \PY{n}{solver}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Running weight scale 1 / 20
+Running weight scale 2 / 20
+Running weight scale 3 / 20
+Running weight scale 4 / 20
+Running weight scale 5 / 20
+Running weight scale 6 / 20
+Running weight scale 7 / 20
+Running weight scale 8 / 20
+Running weight scale 9 / 20
+Running weight scale 10 / 20
+Running weight scale 11 / 20
+Running weight scale 12 / 20
+Running weight scale 13 / 20
+Running weight scale 14 / 20
+Running weight scale 15 / 20
+Running weight scale 16 / 20
+Running weight scale 17 / 20
+Running weight scale 18 / 20
+Running weight scale 19 / 20
+Running weight scale 20 / 20
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c+c1}{\PYZsh{} Plot results of weight scale experiment}
+         \PY{n}{best\PYZus{}train\PYZus{}accs}\PY{p}{,} \PY{n}{bn\PYZus{}best\PYZus{}train\PYZus{}accs} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+         \PY{n}{best\PYZus{}val\PYZus{}accs}\PY{p}{,} \PY{n}{bn\PYZus{}best\PYZus{}val\PYZus{}accs} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+         \PY{n}{final\PYZus{}train\PYZus{}loss}\PY{p}{,} \PY{n}{bn\PYZus{}final\PYZus{}train\PYZus{}loss} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{ws} \PY{o+ow}{in} \PY{n}{weight\PYZus{}scales}\PY{p}{:}
+           \PY{n}{best\PYZus{}train\PYZus{}accs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{solvers}\PY{p}{[}\PY{n}{ws}\PY{p}{]}\PY{o}{.}\PY{n}{train\PYZus{}acc\PYZus{}history}\PY{p}{)}\PY{p}{)}
+           \PY{n}{bn\PYZus{}best\PYZus{}train\PYZus{}accs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{bn\PYZus{}solvers}\PY{p}{[}\PY{n}{ws}\PY{p}{]}\PY{o}{.}\PY{n}{train\PYZus{}acc\PYZus{}history}\PY{p}{)}\PY{p}{)}
+           
+           \PY{n}{best\PYZus{}val\PYZus{}accs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{solvers}\PY{p}{[}\PY{n}{ws}\PY{p}{]}\PY{o}{.}\PY{n}{val\PYZus{}acc\PYZus{}history}\PY{p}{)}\PY{p}{)}
+           \PY{n}{bn\PYZus{}best\PYZus{}val\PYZus{}accs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{bn\PYZus{}solvers}\PY{p}{[}\PY{n}{ws}\PY{p}{]}\PY{o}{.}\PY{n}{val\PYZus{}acc\PYZus{}history}\PY{p}{)}\PY{p}{)}
+           
+           \PY{n}{final\PYZus{}train\PYZus{}loss}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{solvers}\PY{p}{[}\PY{n}{ws}\PY{p}{]}\PY{o}{.}\PY{n}{loss\PYZus{}history}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+           \PY{n}{bn\PYZus{}final\PYZus{}train\PYZus{}loss}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{bn\PYZus{}solvers}\PY{p}{[}\PY{n}{ws}\PY{p}{]}\PY{o}{.}\PY{n}{loss\PYZus{}history}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+           
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best val accuracy vs weight initialization scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight initialization scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best val accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{weight\PYZus{}scales}\PY{p}{,} \PY{n}{best\PYZus{}val\PYZus{}accs}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{baseline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{weight\PYZus{}scales}\PY{p}{,} \PY{n}{bn\PYZus{}best\PYZus{}val\PYZus{}accs}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{batchnorm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{ncol}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best train accuracy vs weight initialization scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight initialization scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best training accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{weight\PYZus{}scales}\PY{p}{,} \PY{n}{best\PYZus{}train\PYZus{}accs}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{baseline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{weight\PYZus{}scales}\PY{p}{,} \PY{n}{bn\PYZus{}best\PYZus{}train\PYZus{}accs}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{batchnorm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Final training loss vs weight initialization scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weight initialization scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Final training loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{weight\PYZus{}scales}\PY{p}{,} \PY{n}{final\PYZus{}train\PYZus{}loss}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{baseline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{weight\PYZus{}scales}\PY{p}{,} \PY{n}{bn\PYZus{}final\PYZus{}train\PYZus{}loss}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{batchnorm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{gcf}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{question}{%
+\subsection{Question:}\label{question}}
+
+In the cell below, summarize the findings of this experiment, and WHY
+these results make sense.
+
+    \hypertarget{answer}{%
+\subsection{Answer:}\label{answer}}
+
+\begin{itemize}
+\tightlist
+\item
+  The third plot (Training loss vs WIS) is a great illustration of the
+  trappings of the problem of weight initialization scale (also known as
+  the vanishing gradients problem) and how it is fixed using batch
+  normalization. If weights are too big then by backwards propagation
+  through the ReLU we get tiny gradients, such that the training process
+  effectively is brought to a halt. Indeed the blue line has reached
+  inifinity after \textasciitilde{}9e0. A similar halting of the
+  training would happen at very small weight initializations, and indeed
+  we already observed an up tick of the value of the final training
+  loss. The batch normalize curve, exhibits a similar behavior but much
+  more tempered, which illustrates its effectiveness in dealing with the
+  problem of WIS.
+\item
+  The second plot (Train\_acc vs WIS) illustrates similar points as the
+  third. It shows that for large and small WIS no training happens for
+  the baseline such that we have a very low training accuracy. In
+  contrast, with batch-norm we get almost constant training accuracy for
+  all WIS.
+\item
+  The first plot (Val\_acc vs WIS) besides the same points as before
+  also illustrates the regularization properties of batch normalization.
+  Indeed the discrepancy between train\_acc - val\_acc is much smaller
+  with batch-normalization across all WIS.
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
